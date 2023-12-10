@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "671421761462",
+    "project_id": "komando-club",
+    "storage_bucket": "komando-club.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671421761462:android:b4cfc9aa350b180bace317",
+        "android_client_info": {
+          "package_name": "com.komando.komando_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhyMJfhTfmDOMFRfN0EBlvPImoHlsj544"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
