@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Schedule {
-  String id;
+  String? id;
   String name;
   int startTime;
   int endTime;
@@ -8,7 +10,7 @@ class Schedule {
   bool? isFull;
 
   Schedule({
-    required this.id,
+    this.id,
     required this.name,
     required this.startTime,
     required this.endTime,
@@ -31,7 +33,6 @@ class Schedule {
 
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['name'] = name;
     data['startTime'] = startTime;
     data['endTime'] = endTime;
@@ -103,7 +104,7 @@ class User {
 }
 
 class Student {
-  String id;
+  String? id;
   String name;
   int age;
   String mobilePhone;
@@ -113,7 +114,7 @@ class Student {
   Schedule? schedule;
 
   Student({
-    required this.id,
+    this.id,
     required this.name,
     required this.age,
     required this.dateIn,
@@ -123,25 +124,25 @@ class Student {
     this.schedule,
   });
 
-  factory Student.fromJSON(Map<String, dynamic> json) {
+  factory Student.fromJSON(Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {
+    Timestamp timestamp = json['dateIn'];
     return Student(
       id: json['id'],
       name: json['name'],
       age: json['age'],
-      dateIn: DateTime.parse(json['dateIn'].toString()),
+      dateIn: timestamp.toDate(),
       ci: json['ci'],
       mobilePhone: json['mobilePhone'],
       photo: json['photo'],
-      schedule: Schedule.fromJSON(json['schedule']),
+      schedule: Schedule.fromJSON(docSchedule.data() as Map<String, dynamic>),
     );
   }
 
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['name'] = name;
     data['age'] = age;
-    data['dateIn'] = dateIn.toIso8601String();
+    data['dateIn'] = Timestamp.fromDate(dateIn);
     data['ci'] = ci;
     data['mobilePhone'] = mobilePhone;
     data['photo'] = photo;

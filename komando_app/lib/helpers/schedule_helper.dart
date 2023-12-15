@@ -16,4 +16,20 @@ class ScheduleHelper {
     );
     return filteredSchedules;
   }
+
+  Future<void> saveSchedule(Schedule schedule) async {
+    ScheduleRepository repository = ScheduleRepositoryImpl(_source);
+    await repository.saveSchedule(schedule);
+  }
+
+  Future<void> deleteSchedule(Schedule schedule) async {
+    ScheduleRepository repository = ScheduleRepositoryImpl(_source);
+    await repository.deleteSchedule(schedule);
+  }
+
+  Future<Schedule> getScheduleByStartTime(int startTime) async {
+    ScheduleRepository repo = ScheduleRepositoryImpl(_source);
+    List<Schedule> schedules = await repo.getSchedules();
+    return schedules.firstWhere((element) => element.startTime == startTime);
+  }
 }

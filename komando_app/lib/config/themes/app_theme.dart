@@ -38,19 +38,32 @@ class AppTheme {
             iconColor: MaterialStatePropertyAll(highlightColor),
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: GoogleFonts.robotoCondensed(
-            color: shadowColor,
+        dialogTheme: DialogTheme(
+          backgroundColor: primaryColor,
+          iconColor: highlightColor,
+          titleTextStyle: GoogleFonts.robotoCondensed(
+            color: secondaryColor,
+            fontSize: 25,
+            fontWeight: FontWeight.w600,
           ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: AppTheme.highlightColor,
-            ),
-          ),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.secondaryColor),
+          contentTextStyle: GoogleFonts.robotoCondensed(
+            color: secondaryColor,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
           ),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+            hintStyle: GoogleFonts.robotoCondensed(
+                color: shadowColor, fontWeight: FontWeight.w700),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: AppTheme.softColor,
+              ),
+            ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: softColor),
+            ),
+            iconColor: highlightColor),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: const MaterialStatePropertyAll(primaryColor),
@@ -83,17 +96,101 @@ class AppTheme {
         ),
         segmentedButtonTheme: SegmentedButtonThemeData(
           style: ButtonStyle(
-            textStyle: MaterialStatePropertyAll(
-              GoogleFonts.robotoCondensed(fontWeight: FontWeight.w700),
-            ),
-            backgroundColor: const MaterialStatePropertyAll(primaryColor),
-            foregroundColor: const MaterialStatePropertyAll(highlightColor),
-            shadowColor:const MaterialStatePropertyAll(shadowColor),
-            elevation:const MaterialStatePropertyAll(5),
-            overlayColor:const MaterialStatePropertyAll(highlightColor),
-            iconColor: const MaterialStatePropertyAll(secondaryColor)
-          ),
+              textStyle: MaterialStatePropertyAll(
+                GoogleFonts.robotoCondensed(fontWeight: FontWeight.w700),
+              ),
+              backgroundColor: const MaterialStatePropertyAll(primaryColor),
+              foregroundColor: const MaterialStatePropertyAll(highlightColor),
+              shadowColor: const MaterialStatePropertyAll(shadowColor),
+              elevation: const MaterialStatePropertyAll(5),
+              overlayColor: const MaterialStatePropertyAll(highlightColor),
+              iconColor: const MaterialStatePropertyAll(secondaryColor)),
         ),
         dividerColor: softColor,
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            textStyle: MaterialStatePropertyAll(
+              GoogleFonts.robotoCondensed(color: secondaryColor),
+            ),
+          ),
+        ),
+        timePickerTheme: TimePickerThemeData(
+            dayPeriodBorderSide: const BorderSide(color: softColor),
+            cancelButtonStyle: ButtonStyle(
+              textStyle: MaterialStatePropertyAll(
+                GoogleFonts.robotoCondensed(
+                  fontSize: 18,
+                ),
+              ),
+              foregroundColor: const MaterialStatePropertyAll(secondaryColor),
+            ),
+            dialTextColor: softColor,
+            dialTextStyle: GoogleFonts.robotoCondensed(
+              fontWeight: FontWeight.w800,
+            ),
+            helpTextStyle: GoogleFonts.robotoCondensed(
+              color: secondaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+            confirmButtonStyle: ButtonStyle(
+              textStyle: MaterialStatePropertyAll(
+                GoogleFonts.robotoCondensed(
+                  fontSize: 18,
+                ),
+              ),
+              foregroundColor: const MaterialStatePropertyAll(secondaryColor),
+            ),
+            dayPeriodTextStyle: GoogleFonts.robotoCondensed(
+                fontWeight: FontWeight.w700, fontSize: 18),
+            dayPeriodTextColor: softColor,
+            backgroundColor: primaryColor,
+            hourMinuteColor: secondaryColor,
+            hourMinuteTextColor: shadowColor,
+            dialHandColor: primaryColor,
+            dayPeriodColor: highlightColor,
+            dialBackgroundColor: secondaryColor),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: primaryColor,
+            foregroundColor: highlightColor,
+            iconSize: 35),
+        datePickerTheme: DatePickerThemeData(
+          backgroundColor: secondaryColor,
+          dayForegroundColor: const MaterialStatePropertyAll(primaryColor),
+          headerForegroundColor: shadowColor,
+          dividerColor: softColor,
+          dayOverlayColor: const MaterialStatePropertyAll(highlightColor),
+          todayForegroundColor: const MaterialStatePropertyAll(softColor),
+          yearBackgroundColor: const MaterialStatePropertyAll(secondaryColor),
+          yearForegroundColor: const MaterialStatePropertyAll(softColor),
+          yearOverlayColor: const MaterialStatePropertyAll(primaryColor),
+          cancelButtonStyle: ButtonStyle(
+            foregroundColor: const MaterialStatePropertyAll(softColor),
+            textStyle: MaterialStatePropertyAll(
+              GoogleFonts.robotoCondensed(
+                  fontWeight: FontWeight.w600, fontSize: 16),
+            ),
+          ),
+          confirmButtonStyle: ButtonStyle(
+            foregroundColor: const MaterialStatePropertyAll(softColor),
+            textStyle: MaterialStatePropertyAll(
+              GoogleFonts.robotoCondensed(
+                  fontWeight: FontWeight.w600, fontSize: 16),
+            ),
+          ),
+          todayBorder: const BorderSide(
+            color: softColor,
+            width: 2,
+          ),
+          yearStyle: GoogleFonts.robotoCondensed(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+          dayStyle: GoogleFonts.robotoCondensed(
+              color: primaryColor, fontWeight: FontWeight.w600),
+          weekdayStyle: GoogleFonts.robotoCondensed(
+            color: softColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ));
 }

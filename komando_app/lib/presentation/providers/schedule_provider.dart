@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:komando_app/data/models/data_models.dart';
 import 'package:komando_app/helpers/schedule_helper.dart';
@@ -19,4 +20,8 @@ class ScheduleSelectedTimeNotifier extends StateNotifier<int> {
     state = selection;
   }
 }
+
+final scheduleStartTimeProvider = StateProvider<TimeOfDay>((ref) => TimeOfDay.now());
+
+final scheduleEndTimeProvider = StateProvider<TimeOfDay>((ref) => TimeOfDay.now());
 

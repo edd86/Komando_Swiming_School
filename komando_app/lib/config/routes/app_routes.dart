@@ -7,6 +7,7 @@ class AppRoutes {
   static const String home = '/';
   static const String login = '/login';
   static const String registerStudent = '/registerStudent';
+  static const String registerUser = '/registerUser';
 
   static Map<String, WidgetBuilder> routes(BuildContext context) {
     return {
@@ -15,7 +16,9 @@ class AppRoutes {
       // Home page route
       home: (context) => const HomePage(),
       // Student Register
-      registerStudent: (context) => const RegisterStudentPage()
+      registerStudent: (context) => const RegisterStudentPage(),
+      // User Register
+      registerUser : (context) => const RegisterUserPage()
     };
   }
 }

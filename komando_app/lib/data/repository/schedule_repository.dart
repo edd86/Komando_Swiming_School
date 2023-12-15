@@ -4,7 +4,8 @@ import 'package:komando_app/data/source/firebase_datasource.dart';
 
 abstract class ScheduleRepository {
   Future<List<Schedule>> getSchedules();
-  Future<bool> saveSchedule();
+  Future<void> saveSchedule(Schedule schedule);
+  Future<void> deleteSchedule(Schedule schedule);
 }
 
 class ScheduleRepositoryImpl implements ScheduleRepository {
@@ -19,9 +20,13 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<bool> saveSchedule() {
-    // TODO: implement saveSchedule
-    throw UnimplementedError();
+  Future<void> saveSchedule(Schedule schedule) async {
+    await _firebaseDataSource.saveSchedule(schedule);
+  }
+  
+  @override
+  Future<void> deleteSchedule(Schedule schedule) async {
+    return await _firebaseDataSource.deleteSchedule(schedule);
   }
   
 }

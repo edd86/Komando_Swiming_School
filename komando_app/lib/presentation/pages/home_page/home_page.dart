@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:komando_app/config/themes/app_theme.dart';
 import 'package:komando_app/data/models/data_models.dart';
+//import 'package:komando_app/helpers/student_helper.dart';
 import 'package:komando_app/presentation/navigation_objects/navigation_home.dart';
 import 'package:komando_app/presentation/providers/user_provider.dart';
 import 'package:komando_app/presentation/widgets/widgets.dart';
@@ -42,30 +43,26 @@ class HomePageState extends ConsumerState<HomePage> {
                     width: size.width * .8,
                     child: Card(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: SizedBox(
-                              width: 100,
-                              child: Image.network(
-                                userConnected.photo,
-                                loadingBuilder:
-                                    (context, child, loadingProgres) {
-                                  if (loadingProgres == null) {
-                                    return child;
-                                  } else {
-                                    return Center(
-                                      child: CustomProgressIndicator(),
-                                    );
-                                  }
-                                },
-                              ),
+                          SizedBox(
+                            width: 100,
+                            child: Image.network(
+                              userConnected.photo,
+                              loadingBuilder: (context, child, loadingProgres) {
+                                if (loadingProgres == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CustomProgressIndicator(),
+                                  );
+                                }
+                              },
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 25),
+                            padding: const EdgeInsets.only(left: 60),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -101,6 +98,16 @@ class HomePageState extends ConsumerState<HomePage> {
             ),
           ),
         ),
+        /* floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            StudentHelper helper = StudentHelper();
+            List<Student> students = await helper.getStudents(9);
+            students.forEach((element) {
+              print(element.name);
+            });
+          },
+          child: const Icon(Icons.textsms_sharp),
+        ), */
       ),
     );
   }

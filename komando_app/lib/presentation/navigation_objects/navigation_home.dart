@@ -18,10 +18,17 @@ class NavigationHomeObject {
 
   static List<NavigationHomeObject> navigator = [
     NavigationHomeObject(
+      title: "Registro de Usuarios",
+      subtitle: "Crea una cuenta para acceder a los servicios.",
+      iconLeading: Icons.person_add_alt_1,
+      iconTrailing: Icons.navigate_next,
+      route: AppRoutes.registerUser,
+    ),
+    NavigationHomeObject(
       title: "Registro Estudiantes",
       subtitle: "Ingresa los datos de tus estudiantes.",
       iconLeading: Icons.person_add_alt_1_rounded,
-      iconTrailing: Icons.arrow_forward_ios,
+      iconTrailing: Icons.navigate_next,
       route: AppRoutes.registerStudent,
     )
   ];
