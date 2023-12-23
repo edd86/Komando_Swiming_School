@@ -32,4 +32,14 @@ class ScheduleHelper {
     List<Schedule> schedules = await repo.getSchedules();
     return schedules.firstWhere((element) => element.startTime == startTime);
   }
+
+  Future<Schedule> getFirstScheduleByShift(String shift) async {
+    ScheduleRepository repository = ScheduleRepositoryImpl(_source);
+    List<Schedule> schedules = await repository.getSchedules();
+    var filteredSchedules = schedules.where((schedule) => schedule.shift == shift).toList();
+    filteredSchedules.sort(
+      (a, b) => a.startTime.compareTo(b.startTime),
+    );
+    return filteredSchedules.first;
+  }
 }

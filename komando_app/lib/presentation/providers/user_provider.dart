@@ -15,3 +15,4 @@ final userConnectedProvider = StateProvider<User>(
   ),
 );
 
+final userAgeProvider = StateProvider<int>((ref) => 0);

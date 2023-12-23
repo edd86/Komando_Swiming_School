@@ -20,20 +20,21 @@ class ScheduleWidgetState extends ConsumerState {
       child: schedules.when(
         data: (data) {
           return FadeIn(
-              child: SegmentedButton(
-            segments: data
-                .map((e) => ButtonSegment(
-                    value: e.startTime,
-                    label: Text('${e.startTime} ${e.shift}')))
-                .toList(),
-            selected: {scheduleSelected},
-            onSelectionChanged: (option) {
-              ref
-                  .read(scheduleSelectedProvider.notifier)
-                  .changeSelection(option.first);
-              //print('opcion: ${option}');
-            },
-          ));
+            child: SegmentedButton(
+              segments: data
+                  .map((schedule) => ButtonSegment(
+                      value: schedule.startTime,
+                      label: Text('${schedule.startTime} ${schedule.shift}')))
+                  .toList(),
+              selected: {scheduleSelected},
+              onSelectionChanged: (option) {
+                ref
+                    .read(scheduleSelectedProvider.notifier)
+                    .changeSelection(option.first);
+                //print('opcion: ${option}');
+              },
+            ),
+          );
         },
         error: (error, stackTrace) {
           //print('error: ${error}');
@@ -44,5 +45,3 @@ class ScheduleWidgetState extends ConsumerState {
     );
   }
 }
-
-

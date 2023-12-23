@@ -11,7 +11,16 @@ final scheduleProvider = FutureProvider<List<Schedule>>((ref) async {
   return await helper.getSchedules(shift);
 });
 
-final scheduleSelectedProvider = StateNotifierProvider<ScheduleSelectedTimeNotifier, int>((ref) => ScheduleSelectedTimeNotifier());
+final firstScheduleSelectedProvider = FutureProvider<int>((ref) async {
+  final shift = ref.watch(shiftProvider);
+  ScheduleHelper helper = ScheduleHelper();
+  Schedule schedule = await helper.getFirstScheduleByShift(shift);
+  return schedule.startTime;
+});
+
+final scheduleSelectedProvider =
+    StateNotifierProvider<ScheduleSelectedTimeNotifier, int>(
+        (ref) => ScheduleSelectedTimeNotifier());
 
 class ScheduleSelectedTimeNotifier extends StateNotifier<int> {
   ScheduleSelectedTimeNotifier() : super(9);
@@ -21,7 +30,8 @@ class ScheduleSelectedTimeNotifier extends StateNotifier<int> {
   }
 }
 
-final scheduleStartTimeProvider = StateProvider<TimeOfDay>((ref) => TimeOfDay.now());
+final scheduleStartTimeProvider =
+    StateProvider<TimeOfDay>((ref) => TimeOfDay.now());
 
-final scheduleEndTimeProvider = StateProvider<TimeOfDay>((ref) => TimeOfDay.now());
-
+final scheduleEndTimeProvider =
+    StateProvider<TimeOfDay>((ref) => TimeOfDay.now());

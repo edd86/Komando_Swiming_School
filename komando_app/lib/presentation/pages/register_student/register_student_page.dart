@@ -7,8 +7,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:komando_app/config/themes/app_theme.dart';
 import 'package:komando_app/data/models/data_models.dart';
-import 'package:komando_app/helpers/schedule_helper.dart';
-import 'package:komando_app/helpers/student_helper.dart';
+import 'package:komando_app/helpers/helpers.dart';
 import 'package:komando_app/presentation/pages/register_student/schedule_widget.dart';
 import 'package:komando_app/presentation/providers/providers.dart';
 import 'package:komando_app/presentation/widgets/widgets.dart';
@@ -130,7 +129,7 @@ class StudentsList extends ConsumerStatefulWidget {
 
 TextStyle styleStudents = GoogleFonts.robotoCondensed(
   color: AppTheme.secondaryColor,
-  fontSize: 17,
+  fontSize: 15,
 );
 
 class StudentsListState extends ConsumerState<StudentsList> {
@@ -157,68 +156,79 @@ class StudentsListState extends ConsumerState<StudentsList> {
                   delay: const Duration(milliseconds: 500),
                   verticalOffset: 35.5,
                   child: FadeInAnimation(
-                    child: Card(
-                      elevation: 8,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: AppTheme.radius,
-                      ),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                        width: double.infinity,
-                        height: 100,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        decoration: const BoxDecoration(
+                    child: GestureDetector(
+                      onTap: () {
+                        //TODO: Lógica de selección de estudiante.
+                        ref.read(studentSelectedProvider.notifier).state = data[index];
+                      },
+                      child: Card(
+                        elevation: 8,
+                        shape: const RoundedRectangleBorder(
                           borderRadius: AppTheme.radius,
                         ),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 45,
-                              backgroundImage: NetworkImage(data[index].photo),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 5),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Nombre: ${data[index].name}',
-                                    style: styleStudents,
-                                  ),
-                                  Text(
-                                    'Edad: ${data[index].age}',
-                                    style: styleStudents,
-                                  ),
-                                  Text(
-                                    'Telf: ${data[index].mobilePhone}',
-                                    style: styleStudents,
-                                  ),
-                                ],
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Container(
+                          width: double.infinity,
+                          height: 100,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: const BoxDecoration(
+                            borderRadius: AppTheme.radius,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(data[index].photo),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 5),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${data[index].dateIn.day} - ${data[index].dateIn.month} - ${data[index].dateIn.year}',
-                                    style: styleStudents,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: SizedBox(
+                                  width: 120,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Nombre: ${data[index].name}',
+                                        style: styleStudents,
+                                        maxLines: 2,
+                                      ),
+                                      Text(
+                                        'Edad: ${data[index].age}',
+                                        style: styleStudents,
+                                      ),
+                                      Text(
+                                        'Telf: ${data[index].mobilePhone}',
+                                        style: styleStudents,
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    data[index].schedule!.name,
-                                    style: styleStudents,
-                                  )
-                                ],
+                                ),
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 5),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${data[index].dateIn.day} - ${data[index].dateIn.month} - ${data[index].dateIn.year}',
+                                      style: styleStudents,
+                                    ),
+                                    Text(
+                                      data[index].schedule!.name,
+                                      style: styleStudents,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

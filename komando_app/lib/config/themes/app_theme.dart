@@ -68,6 +68,10 @@ class AppTheme {
           style: ButtonStyle(
             backgroundColor: const MaterialStatePropertyAll(primaryColor),
             foregroundColor: const MaterialStatePropertyAll(secondaryColor),
+            elevation: const MaterialStatePropertyAll(5),
+            shadowColor: const MaterialStatePropertyAll(shadowColor),
+            //maximumSize: const MaterialStatePropertyAll(Size(double.infinity, 25)),
+            fixedSize: const MaterialStatePropertyAll(Size(double.infinity, 25)),
             textStyle: MaterialStatePropertyAll(
               GoogleFonts.robotoCondensed(
                   fontWeight: FontWeight.bold, fontSize: 17),

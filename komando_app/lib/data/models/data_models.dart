@@ -68,7 +68,7 @@ class User {
     this.schedule,
   });
 
-  factory User.fromJSON(Map<String, dynamic> json) {
+  factory User.fromJSON(Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {
     return User(
       id: json['id'],
       name: json['name'],
@@ -79,7 +79,7 @@ class User {
       address: json['address'],
       isAdmin: json['isAdmin'],
       photo: json['photo'],
-      schedule: json['schedule'] != null ? Schedule.fromJSON(json['schedule']) : null,
+      schedule: json['schedule'] != null ? Schedule.fromJSON(docSchedule.data() as Map<String, dynamic>) : null,
     );
   }
 
@@ -111,7 +111,7 @@ class Student {
   String? ci;
   DateTime dateIn;
   String photo;
-  Schedule? schedule;
+  Schedule schedule;
 
   Student({
     this.id,
@@ -121,7 +121,7 @@ class Student {
     this.ci,
     required this.mobilePhone,
     this.photo = 'https://placehold.co/600x800/png',
-    this.schedule,
+    required this.schedule,
   });
 
   factory Student.fromJSON(Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {

@@ -55,14 +55,14 @@ class HomePageState extends ConsumerState<HomePage> {
                                   return child;
                                 } else {
                                   return Center(
-                                    child: CustomProgressIndicator(),
+                                    child: CustomProgressIndicator(size: 20),
                                   );
                                 }
                               },
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 60),
+                            padding: const EdgeInsets.only(left: 40),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

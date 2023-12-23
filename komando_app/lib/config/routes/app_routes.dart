@@ -18,7 +18,7 @@ class AppRoutes {
       // Student Register
       registerStudent: (context) => const RegisterStudentPage(),
       // User Register
-      registerUser : (context) => const RegisterUserPage()
+      registerUser : (context) => RegisterUserPage()
     };
   }
 }

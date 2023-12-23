@@ -20,17 +20,30 @@ class StudentHelper {
     return filteredStudents;
   }
 
-  Future<bool> addStudent(String name, int age, String phone, String ci, DateTime dateIn, int startTime) async {
+  Future<bool> addStudent(String name, int age, String phone, String ci,
+      DateTime dateIn, int startTime) async {
     StudentRepository repository = StudentRepositoryImpl(_dataSource);
     ScheduleHelper scheduleHelper = ScheduleHelper();
     Schedule schedule = await scheduleHelper.getScheduleByStartTime(startTime);
-    Student newStudent = Student(name: name, age: age, ci: ci, dateIn: dateIn, mobilePhone: phone);
+    Student newStudent = Student(
+      name: name,
+      age: age,
+      ci: ci,
+      dateIn: dateIn,
+      mobilePhone: phone,
+      schedule: Schedule(
+        name: schedule.name,
+        startTime: schedule.startTime,
+        endTime: schedule.endTime,
+        studentsLimit: schedule.studentsLimit,
+        shift: schedule.shift,
+      ),
+    );
     try {
       await repository.addStudent(newStudent, schedule);
       return true;
-    } catch(e) {
-      print(e.toString());
+    } catch (e) {
       return false;
     }
-  } 
+  }
 }

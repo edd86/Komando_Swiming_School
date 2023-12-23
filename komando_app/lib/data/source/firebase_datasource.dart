@@ -4,7 +4,7 @@ import 'package:komando_app/data/models/data_models.dart';
 
 abstract class FirebaseDataSource  {
   Future<List<User>> getUsers();
-  Future<bool> saveUser(User user);
+  Future<void> saveUser(User user);
   Future<List<Schedule>> getSchedules();
   Future<void> saveSchedule(Schedule schedule);
   Future<List<Student>> getStudents();
@@ -24,15 +24,15 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
       final id = <String, dynamic> {'id': document.id};
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       data.addAll(id);
-      users.add(User.fromJSON(data));
+      DocumentSnapshot docSchedule = await data['schedule'].get();
+      users.add(User.fromJSON(data, docSchedule));
     }
     return users;
   }
 
   @override
-  Future<bool> saveUser(User user) {
-    // TODO: implement saveUser
-    throw UnimplementedError();
+  Future<void> saveUser(User user) async {
+    await _firestore.collection('user').add(user.toJSON());
   }
   
   @override
