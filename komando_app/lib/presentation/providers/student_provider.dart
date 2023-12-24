@@ -11,4 +11,18 @@ final studentsProviders = FutureProvider<List<Student>>((ref) {
 
 final studentDateProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
-final studentSelectedProvider = StateProvider<Student>((ref) => Student(name: 'name', age: 0, dateIn: DateTime.now(), mobilePhone: 'mobilePhone'));
+final studentSelectedProvider = StateProvider<Student>(
+  (ref) => Student(
+    name: 'name',
+    age: 0,
+    dateIn: DateTime.now(),
+    mobilePhone: 'mobilePhone',
+    schedule: Schedule(
+      name: 'name',
+      startTime: 0,
+      endTime: 0,
+      studentsLimit: 0,
+      shift: 'shift',
+    ),
+  ),
+);

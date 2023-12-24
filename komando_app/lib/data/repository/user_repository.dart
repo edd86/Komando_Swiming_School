@@ -1,14 +1,12 @@
-
 import 'package:komando_app/data/models/data_models.dart';
 import 'package:komando_app/data/source/firebase_datasource.dart';
 
 abstract class UserRepository {
   Future<List<User>> getUsers();
-  Future<void> saveUser(User user);
+  Future<void> saveUser(User user, [String? id]);
 }
 
 class UserRepositoryImpl implements UserRepository {
-
   final FirebaseDataSource _firebaseDataSource;
 
   UserRepositoryImpl(this._firebaseDataSource);
@@ -19,8 +17,11 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> saveUser(User user) async {
-    return await _firebaseDataSource.saveUser(user);
+  Future<void> saveUser(User user, [String? id]) async {
+    if (id != null) {
+      await _firebaseDataSource.saveUser(user, id);
+    } else {
+      await _firebaseDataSource.saveUser(user);
+    }
   }
-  
 }

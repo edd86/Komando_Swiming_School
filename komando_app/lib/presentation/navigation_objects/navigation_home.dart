@@ -6,6 +6,7 @@ class NavigationHomeObject {
   String subtitle;
   IconData iconLeading;
   IconData iconTrailing;
+  bool isRestricted;
   String route;
 
   NavigationHomeObject({
@@ -13,6 +14,7 @@ class NavigationHomeObject {
     required this.subtitle,
     required this.iconLeading,
     required this.iconTrailing,
+    required this.isRestricted,
     required this.route,
   });
 
@@ -22,6 +24,7 @@ class NavigationHomeObject {
       subtitle: "Crea una cuenta para acceder a los servicios.",
       iconLeading: Icons.person_add_alt_1,
       iconTrailing: Icons.navigate_next,
+      isRestricted: true,
       route: AppRoutes.registerUser,
     ),
     NavigationHomeObject(
@@ -29,6 +32,7 @@ class NavigationHomeObject {
       subtitle: "Ingresa los datos de tus estudiantes.",
       iconLeading: Icons.person_add_alt_1_rounded,
       iconTrailing: Icons.navigate_next,
+      isRestricted: true,
       route: AppRoutes.registerStudent,
     )
   ];

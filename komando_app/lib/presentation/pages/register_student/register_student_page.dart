@@ -159,7 +159,8 @@ class StudentsListState extends ConsumerState<StudentsList> {
                     child: GestureDetector(
                       onTap: () {
                         //TODO: Lógica de selección de estudiante.
-                        ref.read(studentSelectedProvider.notifier).state = data[index];
+                        ref.read(studentSelectedProvider.notifier).state =
+                            data[index];
                       },
                       child: Card(
                         elevation: 8,
@@ -179,7 +180,8 @@ class StudentsListState extends ConsumerState<StudentsList> {
                             children: [
                               CircleAvatar(
                                 radius: 40,
-                                backgroundImage: NetworkImage(data[index].photo),
+                                backgroundImage:
+                                    NetworkImage(data[index].photo),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -189,7 +191,8 @@ class StudentsListState extends ConsumerState<StudentsList> {
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Nombre: ${data[index].name}',
@@ -221,7 +224,7 @@ class StudentsListState extends ConsumerState<StudentsList> {
                                       style: styleStudents,
                                     ),
                                     Text(
-                                      data[index].schedule!.name,
+                                      data[index].schedule.name,
                                       style: styleStudents,
                                     )
                                   ],

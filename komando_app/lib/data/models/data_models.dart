@@ -21,14 +21,13 @@ class Schedule {
 
   factory Schedule.fromJSON(Map<String, dynamic> json) {
     return Schedule(
-      id: json['id'],
-      name: json['name'],
-      startTime: json['startTime'],
-      endTime: json['endTime'],
-      studentsLimit: json['studentLimit'],
-      shift: json['shift'],
-      isFull: json['isFull']
-    );
+        id: json['id'],
+        name: json['name'],
+        startTime: json['startTime'],
+        endTime: json['endTime'],
+        studentsLimit: json['studentLimit'],
+        shift: json['shift'],
+        isFull: json['isFull']);
   }
 
   Map<String, dynamic> toJSON() {
@@ -44,19 +43,19 @@ class Schedule {
 }
 
 class User {
-  String id;
+  String? id;
   String name;
   int age;
   String userName;
   String password;
   String mobileNumber;
   String address;
-  String photo;
+  String? photo;
   bool isAdmin;
   Schedule? schedule;
 
   User({
-    required this.id,
+    this.id,
     required this.name,
     required this.age,
     required this.userName,
@@ -68,7 +67,8 @@ class User {
     this.schedule,
   });
 
-  factory User.fromJSON(Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {
+  factory User.fromJSON(Map<String, dynamic> json,
+      {DocumentSnapshot<Object?>? docSchedule}) {
     return User(
       id: json['id'],
       name: json['name'],
@@ -79,7 +79,9 @@ class User {
       address: json['address'],
       isAdmin: json['isAdmin'],
       photo: json['photo'],
-      schedule: json['schedule'] != null ? Schedule.fromJSON(docSchedule.data() as Map<String, dynamic>) : null,
+      schedule: docSchedule != null
+          ? Schedule.fromJSON(docSchedule.data() as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -93,9 +95,7 @@ class User {
     data['mobileNumber'] = mobileNumber;
     data['address'] = address;
     data['isAdmin'] = isAdmin;
-    if(photo.isEmpty || photo == ''){
-      data['photo'] = 'https://placehold.co/600x800/png';
-    }
+    data['photo'] = 'https://placehold.co/600x800/png';
     if (schedule != null) {
       data['schedule'] = schedule!.toJSON();
     }
@@ -124,7 +124,8 @@ class Student {
     required this.schedule,
   });
 
-  factory Student.fromJSON(Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {
+  factory Student.fromJSON(
+      Map<String, dynamic> json, DocumentSnapshot<Object?> docSchedule) {
     Timestamp timestamp = json['dateIn'];
     return Student(
       id: json['id'],
@@ -146,9 +147,7 @@ class Student {
     data['ci'] = ci;
     data['mobilePhone'] = mobilePhone;
     data['photo'] = photo;
-    if (schedule != null) {
-      data['schedule'] = schedule!.toJSON();
-    }
+    data['schedule'] = schedule.toJSON();
     return data;
   }
 }

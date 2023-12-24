@@ -49,7 +49,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           SizedBox(
                             width: 100,
                             child: Image.network(
-                              userConnected.photo,
+                              userConnected.photo!,
                               loadingBuilder: (context, child, loadingProgres) {
                                 if (loadingProgres == null) {
                                   return child;
@@ -124,9 +124,10 @@ class NavigationList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     User user = ref.watch(userConnectedProvider);
+    final navigationList = NavigationHomeObject.navigator;
     return Expanded(
       child: ListView.separated(
-        itemCount: NavigationHomeObject.navigator.length,
+        itemCount: navigationList.length,
         separatorBuilder: (context, index) => const SizedBox(
           height: 5,
         ),
@@ -138,7 +139,7 @@ class NavigationList extends ConsumerWidget {
             leading: Icon(NavigationHomeObject.navigator[index].iconLeading),
             trailing: Icon(NavigationHomeObject.navigator[index].iconTrailing),
             onTap: () {
-              if (user.isAdmin) {
+              if (user.isAdmin && navigationList[index].isRestricted) {
                 Navigator.pushNamed(
                     context, NavigationHomeObject.navigator[index].route);
               } else {

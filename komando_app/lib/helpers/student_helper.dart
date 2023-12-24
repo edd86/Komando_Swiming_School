@@ -12,7 +12,7 @@ class StudentHelper {
     StudentRepository repository = StudentRepositoryImpl(_dataSource);
     List<Student> students = await repository.getStudents();
     var filteredStudents = students
-        .where((student) => student.schedule!.startTime == schedule)
+        .where((student) => student.schedule.startTime == schedule)
         .toList();
     filteredStudents.sort(
       (a, b) => a.name.compareTo(b.name),
