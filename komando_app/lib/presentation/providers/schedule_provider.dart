@@ -24,7 +24,6 @@ final scheduleSelectedProvider =
 
 class ScheduleSelectedTimeNotifier extends StateNotifier<int> {
   ScheduleSelectedTimeNotifier() : super(9);
-
   void changeSelection(int selection) {
     state = selection;
   }

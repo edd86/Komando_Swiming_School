@@ -35,4 +35,10 @@ class UserHelper {
       return false;
     }
   }
+
+  Future<List<User>> getUsers() async {
+    UserRepository userRepository = UserRepositoryImpl(_dataSource);
+    final users = await userRepository.getUsers();
+    return users;
+  }
 }

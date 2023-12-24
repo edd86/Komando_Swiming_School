@@ -50,7 +50,7 @@ class User {
   String password;
   String mobileNumber;
   String address;
-  String? photo;
+  String photo;
   bool isAdmin;
   Schedule? schedule;
 

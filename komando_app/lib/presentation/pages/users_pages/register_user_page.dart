@@ -391,6 +391,7 @@ class RegisterUserPageState extends ConsumerState<RegisterUserPage> {
                         if (await helper.addUser(name, age, userName, password,
                             mobile, address, isAdmin, startTime)) {
                           mostrarMensaje('Usuario Agregado.');
+                          ref.invalidate(usersListProvider);
                           navegarAtras();
                         } else {
                           mostrarMensaje('Usuario no Agregado.');

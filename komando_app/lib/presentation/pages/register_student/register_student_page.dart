@@ -158,7 +158,7 @@ class StudentsListState extends ConsumerState<StudentsList> {
                   child: FadeInAnimation(
                     child: GestureDetector(
                       onTap: () {
-                        //TODO: Lógica de selección de estudiante.
+                        //TODO: Lógica de selección de estudiante
                         ref.read(studentSelectedProvider.notifier).state =
                             data[index];
                       },

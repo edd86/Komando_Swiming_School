@@ -26,8 +26,9 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
       if (data['schedule'] != null) {
         DocumentSnapshot docSchedule = await data['schedule'].get();
         users.add(User.fromJSON(data, docSchedule: docSchedule));
+      } else {
+        users.add(User.fromJSON(data));
       }
-      users.add(User.fromJSON(data));
     }
     return users;
   }
@@ -64,7 +65,6 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
   @override
   Future<void> saveSchedule(Schedule schedule) async {
     await _firestore.collection('schedule').add(schedule.toJSON());
-    //print('$doc');
   }
 
   @override
@@ -76,7 +76,6 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       DocumentSnapshot docSchedule = await data['schedule'].get();
       data.addAll(id);
-      //print('${docSchedule.data()}');
       students.add(Student.fromJSON(data, docSchedule));
     }
     return students;

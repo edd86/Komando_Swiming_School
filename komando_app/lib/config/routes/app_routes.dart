@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:komando_app/presentation/pages/pages.dart';
 
-
 class AppRoutes {
-  
   static const String home = '/';
   static const String login = '/login';
   static const String registerStudent = '/registerStudent';
   static const String registerUser = '/registerUser';
+  static const String usersPage = '/usersPage';
 
   static Map<String, WidgetBuilder> routes(BuildContext context) {
     return {
@@ -18,7 +17,9 @@ class AppRoutes {
       // Student Register
       registerStudent: (context) => const RegisterStudentPage(),
       // User Register
-      registerUser : (context) => RegisterUserPage()
+      registerUser: (context) => const RegisterUserPage(),
+      // User Page
+      usersPage: (context) => const UsersPage()
     };
   }
 }

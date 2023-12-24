@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:komando_app/config/routes/app_routes.dart';
 import 'package:komando_app/config/themes/app_theme.dart';
 import 'package:komando_app/data/models/data_models.dart';
 //import 'package:komando_app/helpers/student_helper.dart';
@@ -49,7 +50,7 @@ class HomePageState extends ConsumerState<HomePage> {
                           SizedBox(
                             width: 100,
                             child: Image.network(
-                              userConnected.photo!,
+                              userConnected.photo,
                               loadingBuilder: (context, child, loadingProgres) {
                                 if (loadingProgres == null) {
                                   return child;
@@ -62,12 +63,12 @@ class HomePageState extends ConsumerState<HomePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 40),
+                            padding: const EdgeInsets.only(left: 20),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Nombre: ${userConnected.name}',
+                                  userConnected.name,
                                   style: textCardStyle,
                                 ),
                                 Text(
@@ -80,8 +81,8 @@ class HomePageState extends ConsumerState<HomePage> {
                                 ),
                                 Text(
                                   userConnected.isAdmin
-                                      ? 'Administración: Si'
-                                      : 'Administración: No',
+                                      ? 'Administrador: Si'
+                                      : 'Administrador: No',
                                   style: textCardStyle,
                                 )
                               ],
@@ -97,6 +98,18 @@ class HomePageState extends ConsumerState<HomePage> {
               ],
             ),
           ),
+        ),
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text(
+            'Cerrar Sesión',
+            style: GoogleFonts.robotoCondensed(fontWeight: FontWeight.w600),
+          ),
+          icon: const Icon(Icons.exit_to_app_rounded),
+          onPressed: () {
+            ref.invalidate(userConnectedProvider);
+            Navigator.popAndPushNamed(context, AppRoutes.login);
+          },
         ),
         /* floatingActionButton: FloatingActionButton(
           onPressed: () async {
@@ -139,12 +152,17 @@ class NavigationList extends ConsumerWidget {
             leading: Icon(NavigationHomeObject.navigator[index].iconLeading),
             trailing: Icon(NavigationHomeObject.navigator[index].iconTrailing),
             onTap: () {
-              if (user.isAdmin && navigationList[index].isRestricted) {
+              if (navigationList[index].isRestricted) {
+                if (user.isAdmin) {
+                  Navigator.pushNamed(
+                      context, NavigationHomeObject.navigator[index].route);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(snackBarMessage(
+                      'No tiene autorización para esta función'));
+                }
+              } else {
                 Navigator.pushNamed(
                     context, NavigationHomeObject.navigator[index].route);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    snackBarMessage('No tiene autorización para esta función'));
               }
             },
           );
