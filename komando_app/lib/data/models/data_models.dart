@@ -147,7 +147,33 @@ class Student {
     data['ci'] = ci;
     data['mobilePhone'] = mobilePhone;
     data['photo'] = photo;
-    data['schedule'] = schedule.toJSON();
+    return data;
+  }
+}
+
+class Payment {
+  String? id;
+  DateTime date;
+  double mont;
+  Student student;
+
+  Payment(
+      {this.id, required this.date, required this.mont, required this.student});
+
+  factory Payment.fromJSON(Map<String, dynamic> json,
+      Map<String, dynamic> studentJson, DocumentSnapshot<Object?> docSchedule) {
+    return Payment(
+      id: json['id'],
+      date: (json['date'] as Timestamp).toDate(),
+      mont: json['mont'].toDouble(),
+      student: Student.fromJSON(studentJson, docSchedule),
+    );
+  }
+
+  Map<String, dynamic> toJSON() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["date"] = Timestamp.fromDate(date);
+    data['mont'] = mont;
     return data;
   }
 }

@@ -9,6 +9,8 @@ abstract class FirebaseDataSource {
   Future<List<Student>> getStudents();
   Future<void> deleteSchedule(Schedule schedule);
   Future<void> addStudent(Student student, Schedule schedule);
+  Future<void> addPayment(Payment payment);
+  Future<List<Payment>> getPayments();
 }
 
 class FirebaseDataSourceImpl implements FirebaseDataSource {
@@ -91,10 +93,39 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
   Future<void> addStudent(Student student, Schedule schedule) async {
     DocumentReference reference =
         _firestore.collection('schedule').doc(schedule.id);
-    final scheduleMaped = <String, dynamic>{'schedule': reference};
-    final studentMaped = student.toJSON();
-    studentMaped.addAll(scheduleMaped);
-    studentMaped.remove('id');
-    await _firestore.collection('student').add(studentMaped);
+    final scheduleMapped = <String, dynamic>{'schedule': reference};
+    final studentMapped = student.toJSON();
+    studentMapped.addAll(scheduleMapped);
+    studentMapped.remove('id');
+    await _firestore.collection('student').add(studentMapped);
+  }
+
+  @override
+  Future<void> addPayment(Payment payment) async {
+    DocumentReference reference =
+        _firestore.collection('student').doc(payment.student.id);
+    final studentMapped = <String, dynamic>{'student': reference};
+    final paymentMapped = payment.toJSON();
+    paymentMapped.addAll(studentMapped);
+    paymentMapped.remove('id');
+    await _firestore.collection('payments').add(paymentMapped);
+  }
+
+  @override
+  Future<List<Payment>> getPayments() async {
+    List<Payment> payments = [];
+    final docPayments = await _firestore.collection('payments').get();
+    for (DocumentSnapshot doc in docPayments.docs) {
+      final paymentId = <String, dynamic>{'id': doc.id};
+      Map<String, dynamic> payment = doc.data() as Map<String, dynamic>;
+      DocumentSnapshot docStudent = await payment['student'].get();
+      final studentId = <String, dynamic>{'id': docStudent.id};
+      Map<String, dynamic> student = docStudent.data() as Map<String, dynamic>;
+      student.addAll(studentId);
+      DocumentSnapshot docSchedule = await student['schedule'].get();
+      payment.addAll(paymentId);
+      payments.add(Payment.fromJSON(payment, student, docSchedule));
+    }
+    return payments;
   }
 }

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:komando_app/config/routes/app_routes.dart';
 import 'package:komando_app/config/themes/app_theme.dart';
 import 'package:komando_app/data/models/data_models.dart';
 import 'package:komando_app/helpers/helpers.dart';
 import 'package:komando_app/presentation/pages/register_student/schedule_widget.dart';
+import 'package:komando_app/presentation/pages/register_student/student_payments_page.dart';
 import 'package:komando_app/presentation/providers/providers.dart';
 import 'package:komando_app/presentation/widgets/widgets.dart';
 
@@ -157,11 +159,6 @@ class StudentsListState extends ConsumerState<StudentsList> {
                   verticalOffset: 35.5,
                   child: FadeInAnimation(
                     child: GestureDetector(
-                      onTap: () {
-                        //TODO: Lógica de selección de estudiante
-                        ref.read(studentSelectedProvider.notifier).state =
-                            data[index];
-                      },
                       child: Card(
                         elevation: 8,
                         shape: const RoundedRectangleBorder(
@@ -234,6 +231,20 @@ class StudentsListState extends ConsumerState<StudentsList> {
                           ),
                         ),
                       ),
+                      onTap: () {
+                        //TODO: Lógica de selección de estudiante
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              StudentPaymentsPage(data[index]),
+                        );
+                      },
+                      onLongPress: () {
+                        //TODO: show student details
+                        ref.read(studentSelectedProvider.notifier).state =
+                            data[index];
+                        Navigator.pushNamed(context, AppRoutes.paymentsPage);
+                      },
                     ),
                   ),
                 ),
@@ -624,6 +635,7 @@ class StudentFormPage extends ConsumerWidget {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(snackBarMessage('Estudiante Agregado'));
                 ref.invalidate(studentsProviders);
+                ref.invalidate(studentDateProvider);
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context)
