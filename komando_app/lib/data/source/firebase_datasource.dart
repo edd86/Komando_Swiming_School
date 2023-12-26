@@ -11,6 +11,8 @@ abstract class FirebaseDataSource {
   Future<void> addStudent(Student student, Schedule schedule);
   Future<void> addPayment(Payment payment);
   Future<List<Payment>> getPayments();
+  Future<void> addImageToStudent(Student student, String url);
+  Future<void> addImageToUser(User user, String url);
 }
 
 class FirebaseDataSourceImpl implements FirebaseDataSource {
@@ -127,5 +129,17 @@ class FirebaseDataSourceImpl implements FirebaseDataSource {
       payments.add(Payment.fromJSON(payment, student, docSchedule));
     }
     return payments;
+  }
+
+  @override
+  Future<void> addImageToStudent(Student student, String url) async {
+    final docRef = _firestore.collection('student').doc(student.id);
+    await docRef.update({'photo': url}).then((value) => null);
+  }
+
+  @override
+  Future<void> addImageToUser(User user, String url) async {
+    final docRef = _firestore.collection('users').doc(user.id);
+    await docRef.update({'photo': url}).then((value) => null);
   }
 }

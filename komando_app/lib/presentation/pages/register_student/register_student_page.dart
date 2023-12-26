@@ -1,5 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, must_be_immutable, use_build_context_synchronously, unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +14,7 @@ import 'package:komando_app/helpers/helpers.dart';
 import 'package:komando_app/presentation/pages/register_student/schedule_widget.dart';
 import 'package:komando_app/presentation/pages/register_student/student_payments_page.dart';
 import 'package:komando_app/presentation/providers/providers.dart';
+import 'package:komando_app/presentation/utils/media_functions.dart';
 import 'package:komando_app/presentation/widgets/widgets.dart';
 
 class RegisterStudentPage extends ConsumerStatefulWidget {
@@ -175,10 +178,42 @@ class StudentsListState extends ConsumerState<StudentsList> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage:
-                                    NetworkImage(data[index].photo),
+                              GestureDetector(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundImage:
+                                      NetworkImage(data[index].photo),
+                                ),
+                                onTap: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        CustomProgressIndicator(
+                                      size: 70,
+                                    ),
+                                  );
+                                  final image = await captureImage();
+                                  if (image != null) {
+                                    StudentHelper helper = StudentHelper();
+                                    Student student = data[index];
+                                    String url = await uploadStudentImage(
+                                        student, File(image.path));
+                                    if (url != '') {
+                                      helper.addImageToStudent(student, url);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        snackBarMessage('Imagen Agregada'),
+                                      );
+                                      ref.invalidate(studentsProviders);
+                                      Navigator.pop(context);
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      snackBarMessage(
+                                          'No se pudo Agregar la Imagen'),
+                                    );
+                                  }
+                                },
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(

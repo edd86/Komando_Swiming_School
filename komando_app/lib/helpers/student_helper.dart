@@ -46,4 +46,14 @@ class StudentHelper {
       return false;
     }
   }
+
+  Future<bool> addImageToStudent(Student student, String url) async {
+    StudentRepository studentRepository = StudentRepositoryImpl(_dataSource);
+    try {
+      await studentRepository.addImageToStudent(student, url);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

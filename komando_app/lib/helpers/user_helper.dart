@@ -41,4 +41,14 @@ class UserHelper {
     final users = await userRepository.getUsers();
     return users;
   }
+
+  Future<bool> addImageToUser(User user, String url) async {
+    UserRepository userRepository = UserRepositoryImpl(_dataSource);
+    try {
+      await userRepository.addImageToUser(user, url);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
